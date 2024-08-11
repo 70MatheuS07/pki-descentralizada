@@ -1,65 +1,28 @@
 from flask import Flask, request, jsonify
-from os import environ
-import logging
-import requests
-import contract_manager as cm
+import web3
+from web3 import Web3
 
 app = Flask(__name__)
 
-logging.basicConfig(level="INFO")
-logger = logging.getLogger(__name__)
+# Inicialização do web3 e do contrato (exemplo simplificado)
+web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
+contract_address = 'SEU_ENDEREÇO_DO_CONTRATO'
+contract_abi = 'SEU_ABI_DO_CONTRATO'
+contract = web3.eth.contract(address=contract_address, abi=contract_abi)
 
-rollup_server = environ.get("ROLLUP_HTTP_SERVER_URL")
-logger.info(f"HTTP rollup_server url is {rollup_server}")
+@app.route('/register_certificate', methods=['POST'])
+def register_certificate():
+    data = request.json
+    certificate_hash = data['certificate_hash']
 
-finish = {"status": "accept"}
+    # Convertendo o hash do certificado para bytes32
+    certificate_hash_bytes = Web3.toBytes(hexstr=certificate_hash)
 
-def handle_advance(data):
-    logger.info(f"Received advance request data {data}")
-    # Adapte esta lógica conforme necessário
-    # Por exemplo, se você quiser registrar um certificado
-    certificate_hash = data.get("certificate_hash")
-    if certificate_hash:
-        receipt = cm.register_certificate(certificate_hash)
-        return "accept" if receipt else "reject"
-    return "reject"
+    # Transacionar com o contrato
+    tx_hash = contract.functions.registerCertificate(certificate_hash_bytes).transact({'from': web3.eth.accounts[0]})
+    receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
 
-def handle_inspect(data):
-    logger.info(f"Received inspect request data {data}")
-    # Adapte esta lógica conforme necessário
-    # Por exemplo, se você quiser verificar um certificado
-    certificate_hash = data.get("certificate_hash")
-    if certificate_hash:
-        is_valid = cm.verify_certificate(certificate_hash)
-        return "accept" if is_valid else "reject"
-    return "reject"
-
-handlers = {
-    "advance_state": handle_advance,
-    "inspect_state": handle_inspect,
-}
-
-@app.route('/process_rollup_requests', methods=['POST'])
-def process_rollup_requests():
-    while True:
-        logger.info("Sending finish")
-        response = requests.post(rollup_server + "/finish", json=finish)
-        logger.info(f"Received finish status {response.status_code}")
-        if response.status_code == 202:
-            logger.info("No pending rollup request, trying again")
-        else:
-            rollup_request = response.json()
-            data = rollup_request.get("data", {})
-            request_type = rollup_request.get("request_type")
-            handler = handlers.get(request_type)
-            if handler:
-                finish["status"] = handler(data)
-            else:
-                finish["status"] = "reject"
-        # Adicione um delay se necessário para evitar excesso de requisições
-        time.sleep(10)  # Ajuste o tempo conforme necessário
-
-    return jsonify({'status': finish["status"]})
+    return jsonify({'transaction_receipt': receipt})
 
 if __name__ == '__main__':
     app.run(debug=True)
