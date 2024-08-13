@@ -1,12 +1,10 @@
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.primitives import serialization, hashes
-from cryptography.hazmat.backends import default_backend
 
 # Gerar a chave privada
 private_key = rsa.generate_private_key(
     public_exponent=65537,
-    key_size=2048,
-    backend=default_backend()
+    key_size=2048
 )
 
 # Salvar a chave privada em um arquivo .pem
@@ -41,14 +39,8 @@ assinatura = private_key.sign(
     hashes.SHA256()
 )
 
-# Verificar a assinatura
-try:
-    public_key.verify(
-        assinatura,
-        documento,
-        padding.PKCS1v15(),
-        hashes.SHA256()
-    )
-    print("Assinatura verificada com sucesso!")
-except:
-    print("Falha na verificação da assinatura!")
+# Salvar a assinatura em um arquivo
+with open("assinatura.bin", "wb") as assinatura_file:
+    assinatura_file.write(assinatura)
+
+print("Chaves e assinatura geradas com sucesso!")
