@@ -26,3 +26,5 @@ with open("keys/public_key.pem", "wb") as f:
         encoding=serialization.Encoding.PEM,
         format=serialization.PublicFormat.SubjectPublicKeyInfo
     ))
+
+print("Chaves privada e pública geradas com sucesso!")

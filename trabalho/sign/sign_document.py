@@ -25,3 +25,5 @@ signature = private_key.sign(
 # Salvando a assinatura
 with open("sign/signature.sig", "wb") as f:
     f.write(signature)
+
+print("Documento assinado com sucesso!")
