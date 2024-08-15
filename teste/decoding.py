@@ -31,9 +31,9 @@ def verify_signature(public_key_path, signature_path, message_path):
         print("A assinatura não é válida.", e)
 
 # Caminhos para os arquivos
-public_key_path = 'keys/public_key.pem'
-signature_path = 'sign/signature.sig'
-message_path = 'sign/documento.txt'  # O arquivo que contém a mensagem original que foi assinada
+public_key_path = 'public_key.pem'
+signature_path = 'signature.sig'
+message_path = 'documento.txt'  # O arquivo que contém a mensagem original que foi assinada
 
 # Verificar a assinatura
 verify_signature(public_key_path, signature_path, message_path)
