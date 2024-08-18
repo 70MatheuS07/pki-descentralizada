@@ -16,7 +16,7 @@ def convert2bytes(hex_str):
     return bytes.fromhex(hex_str)
 
 # Solicitar o nome do arquivo de entrada
-input_filename = input("Digite o nome do arquivo de entrada contendo a string hexadecimal: ").strip()
+input_filename = input("Digite o nome do arquivo de entrada (ex: doc_rtn_0_0.hex): ").strip()
 
 # Ler o conteúdo do arquivo de entrada
 try:
@@ -33,8 +33,8 @@ except ValueError as e:
     print(f"Erro na conversão de hexadecimal para bytes: {e}")
     exit(1)
 
-# Definir o nome do arquivo de saída
-output_filename = "documento_saida.sig"
+# Definir o nome do arquivo de saída com a mesma base do arquivo de entrada e extensão '.sig'
+output_filename = f"{input_filename.rsplit('.', 1)[0]}.sig"
 
 # Salvar o conteúdo convertido em bytes no arquivo de saída
 with open(output_filename, "wb") as f:

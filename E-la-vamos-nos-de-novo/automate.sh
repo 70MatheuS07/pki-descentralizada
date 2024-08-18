@@ -14,7 +14,7 @@ python3 hex/convert_hex.py
 echo "Processo concluído!"
 
 # Converte o conteúdo do arquivo para hexadecimal
-hex_content=$(xxd -p documento_assinado.hex | tr -d '\n')
+hex_content=$(xxd -p doc_sign.hex | tr -d '\n')
 
 # Executa o comando cartesi send generic com o input do arquivo
 cartesi send generic --input "0x$hex_content" --input-encoding hex

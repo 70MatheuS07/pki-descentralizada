@@ -24,7 +24,7 @@ signature = private_key.sign(
 )
 
 # Salvando a assinatura com o nome do documento original + ".sig"
-signed_document_name = f"documento_assinado.sig"
+signed_document_name = f"doc_sign.sig"
 with open(signed_document_name, "wb") as f:
     f.write(signature)
 
