@@ -36,3 +36,11 @@ Como o trabalho é simples só teremos o Node 0, então sempre o payload que vc 
 
 Então ao vir as perguntas do Node e Input vc irá preencher com 0 sempre e o index Input maior.
 
+Digite o nome do arquivo de entrada (ex: doc_rtn_0_0.hex)
+
+Digite o nome do arquivo .sig para verificar (ex: doc_rtn_0_0.sig)
+
+Se der tudo certo, haverá a saida: Assinatura verificada com sucesso!
+
+Caso queira limpar os documentos criados somente execute: ./clean.sh
+

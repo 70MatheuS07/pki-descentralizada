@@ -4,7 +4,7 @@
 TARGET_DIR="$(dirname "$(realpath "$0")")"
 
 # Arquivos de nome fixo para remover
-FIXED_FILES=("doc_sign.hex" "doc_sign.sig")
+FIXED_FILES=("doc_sign.hex" "doc_sign.sig" "keys/private_key.pem" "keys/public_key.pem")
 
 # Remove arquivos de nome fixo
 for FILE in "${FIXED_FILES[@]}"; do
