@@ -14,6 +14,7 @@ Matheus Lopes Ferreira Lima
 No diretório do projeto inicialmente é preciso dar 2 comandos para começar a rodar o Cartesi:
 
 cartesi build
+
 cartesi run
 
 Esses 2 comandos vai colocar o servidor local dentro do Docker para funcionar. O terminal que foram executados esse comando ficará com ele rodando, para dar sequência a requisições é necessário abrir outro terminal no diretório do projeto.
@@ -23,10 +24,15 @@ Aberto este outro terminal é possível executar o script exec.sh.
 Primeiramente será necessário informar o nome do documento que você vai querer salvar dentro do Cartesi. Logo após você seleciona as seguintes opções (somente para testar):
 
 Aperte enter selecionando Foundy,
+
 Aperte enter para selecionar a rota padrão entre parênteses,
+
 Aperte enter para selecionar a Wallet Mnemonic,
+
 Aperte enter para selecionar a entrada padrão do Mnemonic entre parênteses,
+
 Aperte enter para selecionar a primeira opção de Account,
+
 Aperte enter para selecionar a entrada padrão da Application adress,
 
 Nisso ele vai gerar o Input sent e enviar o documento para o cartesi.
