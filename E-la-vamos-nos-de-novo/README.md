@@ -3,6 +3,11 @@
 This is a template for Python Cartesi DApps. It uses python3 to execute the backend application.
 The application entrypoint is the `dapp.py` file.
 
+INTEGRANTES DO GRUPO:
+Lucas Gabriel de Oliveira Costa
+Matheus de Oliveira Lima
+Matheus Lopes Ferreira Lima
+
 No diretório do projeto inicialmente é preciso dar 2 comandos para começar a rodar o Cartesi:
 
 cartesi build
